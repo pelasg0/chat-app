@@ -7,9 +7,6 @@ RUN mkdir /app
 # Environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV DJANGO_SECRET_KEY="insecure-default-secret-key-for-dev"
-ENV DEBUG=1
-ENV DJANGO_ALLOWED_HOSTS=127.0.0.1,localhost
 
 # Set the working directory inside the container
 WORKDIR /app
