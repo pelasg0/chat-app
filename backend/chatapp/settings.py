@@ -78,17 +78,6 @@ WSGI_APPLICATION = 'chatapp.wsgi.application'
 
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'dockersexa123',
-#         'USER': 'dockersexa123',
-#         'PASSWORD': 'dockersexa123',
-#         'HOST': 'database-1.cfufzhjzmbbp.eu-central-1.rds.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
-
 
 DATABASES = {
     'default': {
