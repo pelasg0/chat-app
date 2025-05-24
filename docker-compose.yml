@@ -1,8 +1,21 @@
 version: "3.8"
 services:
   web:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     image: django-docker
     ports:
       - "8000:8000"
     volumes:
-      - .:/app
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: vite-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
