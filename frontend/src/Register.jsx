@@ -1,31 +1,30 @@
 import React, { useState } from "react";
-import "./Register.css";
+import { Link } from "react-router-dom";
 
-export default function Register({onHomepageClick}) {
-  const [form, setForm] = useState({ username: "", email: "", password: "" });
+export default function Register() {
+  const [form, setForm] = useState({email: "", password: ""});
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    console.log(form);
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // TODO: Send form data to backend API
-    alert("Registration submitted!\n" + JSON.stringify(form, null, 2));
+    if (form.password === form.passwordRepeat) {
+      e.preventDefault();
+      // TODO: Send form data to backend API
+      alert("Registration submitted!\n" + JSON.stringify(form, null, 2));
+    }
+    else {
+      e.preventDefault();
+      alert("Passwords do not match!");
+    }
   };
 
   return (
     <div className="register-container">
       <h2>Register</h2>
       <form className="register-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={form.username}
-          onChange={handleChange}
-          required
-        />
         <input
           type="email"
           name="email"
@@ -42,12 +41,20 @@ export default function Register({onHomepageClick}) {
           onChange={handleChange}
           required
         />
+        <input
+          type="password"
+          name="passwordRepeat"
+          placeholder="Password"
+          value={form.passwordRepeat}
+          onChange={handleChange}
+          required
+        />
         <button type="submit" className="primary-btn">
           Register
         </button>
-        <button className="secondary-btn" onClick={onHomepageClick}>
+        <Link className="secondary-btn" to={"/"}>
           Cancel
-        </button>
+        </Link>
       </form>
     </div>
   );

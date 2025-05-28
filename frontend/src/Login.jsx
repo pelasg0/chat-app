@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./Login.css";
+import { Link } from "react-router-dom";
 
-export default function Login({onHomepageClick}) {
+export default function Login() {
   const [form, setForm] = useState({ username: "", password: "" });
 
   const handleChange = (e) => {
@@ -19,10 +19,10 @@ export default function Login({onHomepageClick}) {
       <h2>Login</h2>
       <form className="login-form" onSubmit={handleSubmit}>
         <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={form.username}
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={form.email}
           onChange={handleChange}
           required
         />
@@ -37,9 +37,9 @@ export default function Login({onHomepageClick}) {
         <button type="submit" className="primary-btn">
           Login
         </button>
-        <button className="secondary-btn" onClick={onHomepageClick}>
+        <Link className="secondary-btn" to={"/"}>
           Cancel
-        </button>
+        </Link>
       </form>
     </div>
   );

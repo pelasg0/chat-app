@@ -1,8 +1,8 @@
 import React from "react";
-import "./Dashboard.css";
 import profileImg from "./assets/only-logo-white.png";
+import { Link } from "react-router-dom";
 
-export default function Dashboard({ user, onNewChat, onJoinChat, onLogout }) {
+export default function Dashboard({ user }) {
   return (
     <div className="dashboard-container">
       <div className="profile-section">
@@ -14,15 +14,15 @@ export default function Dashboard({ user, onNewChat, onJoinChat, onLogout }) {
         <h2 className="profile-name">{user?.name || "Username"}</h2>
       </div>
       <div className="dashboard-actions">
-        <button className="primary-btn" onClick={onNewChat}>
+        <Link className="primary-btn">
           New Chat
-        </button>
-        <button className="primary-btn" onClick={onJoinChat}>
+        </Link>
+        <Link className="primary-btn">
           Join Chat
-        </button>
-        <button className="secondary-btn" onClick={onLogout}>
+        </Link>
+        <Link className="secondary-btn" to={"/"}>
           Log Out
-        </button>
+        </Link>
       </div>
     </div>
   );
