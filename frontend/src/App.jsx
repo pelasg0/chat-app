@@ -7,9 +7,9 @@ function App() {
   const [screen, setScreen] = useState("home"); // "home", "register", or "login"
 
   if (screen === "register") {
-    return <Register />;
+    return <Register  onHomepageClick={() => setScreen("home")}/>;
   } else if (screen === "login") {
-    return <Login />;
+    return <Login onHomepageClick={() => setScreen("home")}/>;
   } else {
     return (
       <HomePage

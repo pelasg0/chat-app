@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Register.css";
 
-export default function Register() {
+export default function Register({onHomepageClick}) {
   const [form, setForm] = useState({ username: "", email: "", password: "" });
 
   const handleChange = (e) => {
@@ -44,6 +44,9 @@ export default function Register() {
         />
         <button type="submit" className="primary-btn">
           Register
+        </button>
+        <button className="secondary-btn" onClick={onHomepageClick}>
+          Cancel
         </button>
       </form>
     </div>

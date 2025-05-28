@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Login.css";
 
-export default function Login() {
+export default function Login({onHomepageClick}) {
   const [form, setForm] = useState({ username: "", password: "" });
 
   const handleChange = (e) => {
@@ -36,6 +36,9 @@ export default function Login() {
         />
         <button type="submit" className="primary-btn">
           Login
+        </button>
+        <button className="secondary-btn" onClick={onHomepageClick}>
+          Cancel
         </button>
       </form>
     </div>
