@@ -1,32 +1,64 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./HomePage";
-import Register from "./Register";
-import Login from "./Login";
-import Dashboard from "./Dashboard";
-import profileImg from "./assets/blank-profile-picture.png";
-import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import HomePage from "./components/HomePage";
+import Register from "./components/Register";
+import Login from "./components/Login";
+import Dashboard from "./components/Dashboard";
+import "./css/index.css";
+import { ClientContext, client } from './context/clientContext.js';
+import { useState, useEffect } from "react";
 
 function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route
-          path="/dashboard"
-          element={
-            <Dashboard
-              user={{ name: "User", avatar: profileImg }}
-              onNewChat={() => console.log("New Chat")}
-              onJoinChat={() => console.log("Join Chat")}
-              onLogout={() => window.location.href = "/"}
-            />
-          }
-        />
-      </Routes>
-    </Router>
+
+	const [ currentUser, setCurrentUser ] = useState(false)
+	const [ loading, setLoading ] = useState(true)
+	const [ profileInfo, setProfileInfo ] = useState()
+	const [ csrfToken, setCsrfToken ] = useState('')
+
+  	useEffect(() => {
+		client.get("/users/user")
+		.then((res) => {
+			if (res.data.message === 'No user is logged in.') {
+				setCurrentUser(false);
+				setLoading(false);
+			} else {
+				setProfileInfo(res);
+				setCurrentUser(true);
+				setCsrfToken(res.data.csrf_token);
+				setLoading(false);
+			}
+		})
+		.catch((error) => {
+			setCurrentUser(false);
+			setLoading(false);
+		});
+	}, [currentUser]);
+
+	useEffect(() => {
+		return () => clearTimeout(timeoutRef.current);
+	}, []);
+
+	if (loading) {
+		return <div></div>;
+	}
+
+	return (
+		<ClientContext.Provider value={{
+				client: client,
+				currentUser: currentUser,
+				setCurrentUser: setCurrentUser,
+				profileInfo: profileInfo,
+				setProfileInfo: setProfileInfo,
+				csrfToken: csrfToken,
+		}}>
+		<Routes>
+			<Route path="/" element={currentUser ? <Dashboard/> : <HomePage />} />
+			<Route path="/register" element={currentUser ? <Dashboard/> : <Register />} />
+			<Route path="/login" element={currentUser ? <Dashboard/> : <Login />} />
+			<Route path="/dashboard" element={<Dashboard/>}
+			/>
+		</Routes>
+		</ClientContext.Provider>
   );
 }
 
