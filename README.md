@@ -1,3 +1,5 @@
+![Logo](/only-logo.png)
+
 ## Commands to set the application up / .env files need to be configured 
 
 ### 1. Build/Rebuild the Image
