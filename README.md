@@ -1,4 +1,4 @@
-![Logo](/only-logo.png)
+<img src="/only-logo.png" alt="Logo" width="200"/>
 
 ## Commands to set the application up / .env files need to be configured 
 
