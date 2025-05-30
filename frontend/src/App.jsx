@@ -9,12 +9,13 @@ import { ClientContext, client } from './context/clientContext.js';
 import { useState, useEffect } from "react";
 
 function App() {
-
+	// State for user authentication, loading, profile info, and CSRF token
 	const [ currentUser, setCurrentUser ] = useState(false)
 	const [ loading, setLoading ] = useState(true)
 	const [ profileInfo, setProfileInfo ] = useState()
 	const [ csrfToken, setCsrfToken ] = useState('')
 
+	// Check if a user is logged in on mount and when currentUser changes
   	useEffect(() => {
 		client.get("/users/user")
 		.then((res) => {
@@ -34,14 +35,17 @@ function App() {
 		});
 	}, [currentUser]);
 
+	// Cleanup effect (example: clear timeouts if used elsewhere)
 	useEffect(() => {
 		return () => clearTimeout(timeoutRef.current);
 	}, []);
 
+	// Show x (or a spinner) while loading user info
 	if (loading) {
 		return <div></div>;
 	}
 
+	// Provide context to all child components and set up routes
 	return (
 		<ClientContext.Provider value={{
 				client: client,
@@ -52,9 +56,12 @@ function App() {
 				csrfToken: csrfToken,
 		}}>
 		<Routes>
+			{/* If logged in, show Dashboard; otherwise, show HomePage */}
 			<Route path="/" element={currentUser ? <Dashboard/> : <HomePage />} />
+			{/* If logged in, redirect register/login to Dashboard */}
 			<Route path="/register" element={currentUser ? <Dashboard/> : <Register />} />
 			<Route path="/login" element={currentUser ? <Dashboard/> : <Login />} />
+			{/* Always show Dashboard at /dashboard */}
 			<Route path="/dashboard" element={<Dashboard/>}
 			/>
 		</Routes>
