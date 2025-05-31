@@ -1,20 +1,25 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+// Register component for user sign-up
 export default function Register() {
+    // State for form fields
     const [form, setForm] = useState({
       email: "",
       password: "",
       passwordRepeat: "",
   });
 
+  // State to track if passwords do not match
   const [passwordDoNotMatch, setPasswordDoNotMatch] = useState(false)
 
+  // Handle input changes and update form state
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     console.log(form);
   };
 
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
     form.password != form.passwordRepeat ? setPasswordDoNotMatch(prev => !prev) : ''

@@ -57,8 +57,8 @@ function App() {
 		}}>
 		<Routes>
 			{/* If logged in, show Dashboard; otherwise, show HomePage */}
-			<Route path="/" element={currentUser ? <Dashboard/> : <HomePage />} />
-			{/* If logged in, redirect register/login to Dashboard */}
+			<Route path="/" element={currentUser ? <Dashboard/> : <HomePage />} /> 
+			{/* If logged in, redirect register/login to Dashboard  */}
 			<Route path="/register" element={currentUser ? <Dashboard/> : <Register />} />
 			<Route path="/login" element={currentUser ? <Dashboard/> : <Login />} />
 			{/* Always show Dashboard at /dashboard */}
